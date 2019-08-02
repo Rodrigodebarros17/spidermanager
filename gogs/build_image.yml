@@ -1,0 +1,25 @@
+- name: build the image
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: build the image for use with gogs
+      command: docker build -t alego:gogs_img .
+ 
+    - name: run gogs in docker container
+      docker_container:
+        name: gogs
+        image: alego:gogs_img
+        state: started
+        restart_policy: always
+        hostname: gogs
+        domainname: al.go.leg.br
+        detach: yes
+        interactive: yes
+        published_ports:
+          - "3000:3000"
+          - "3022:22"
+        volumes:
+          - /var/gogs:/home/git
+
+  
