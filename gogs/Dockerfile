@@ -2,7 +2,7 @@ FROM ubuntu:latest
 # Install vim and ansible
 RUN echo "Updating packages"
 RUN apt update \
-  && apt install vim ansible -y
+  && apt install vim ansible openssh-server -y
 
 
 RUN echo "Configing ansible"
@@ -15,12 +15,11 @@ COPY container_in/gogs_container.yml playbooks/
                   
 RUN echo "Installing Ansible Galaxy roles and runing playbook"
 # Install Necessary Ansible galaxy and Run playbook
-RUN ansible-galaxy install geerlingguy.gogs 
-# && ansible-playbook playbooks/gogs_container.yml
+RUN ansible-galaxy install geerlingguy.gogs
+RUN ansible-playbook playbooks/gogs_container.yml
 
 # Configure Docker Container
-VOLUME ["/home/git"]
+VOLUME ["/var/gogs"]
 EXPOSE 22 3000
-#ENTRYPOINT ["/app/gogs/docker/start.sh"]
-#CMD ["/bin/s6-svscan", "/app/gogs/docker/s6/"]
-CMD ["/bin/bash"]
+#CMD ["service","gogs","restart"]  
+#ENTRYPOINT ["/bin/bash"]

@@ -3,3 +3,16 @@
 
   roles:
     - geerlingguy.docker
+
+- hosts: 127.0.0.1
+  tasks: 
+    - name : Creating new brigth network with another IP range
+      docker_network:
+        name: manager_net
+        driver_options:
+          com.docker.network.bridge.name: net2
+        ipam_options:
+          subnet: '10.1.1.0/16'
+          gateway: 10.1.1.1
+          #iprange: '/24'
+

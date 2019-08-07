@@ -13,13 +13,22 @@
         state: started
         restart_policy: always
         hostname: gogs
+        networks: 
+          - name: manager_net
+        purge_networks: yes
         domainname: al.go.leg.br
         detach: yes
         interactive: yes
+        tty: yes
+
         published_ports:
           - "3000:3000"
           - "3022:22"
         volumes:
-          - /var/gogs:/home/git
+          - /var/gogs:/var/gogs
+        command: 
+          - ""
+        entrypoint: 
+          - "/bin/bash"
 
   

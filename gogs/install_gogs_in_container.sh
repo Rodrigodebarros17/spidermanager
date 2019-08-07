@@ -47,3 +47,4 @@ echo "*** Build Docker Image with Dockerfile with ansible playbook ***"
 ansible-playbook $PLAYBOOK_BUILD
 
 
+

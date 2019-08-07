@@ -1,0 +1,35 @@
+- name: build the image
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: build the image for use with jenkins
+      command: docker build -t alego:jenkins_img .
+ 
+    - name: run jenkins in docker container
+      docker_container:
+        name: jenkins
+        image: alego:jenkins_img
+        state: started
+        restart_policy: always
+        hostname: jenkins
+        networks: 
+          - name: manager_net
+#        purge_networks: yes
+        dns_search_domains: 
+          - al.go.leg.br
+        dns_servers:
+          - 172.16.0.5
+          - 172.16.0.6
+        domainname: al.go.leg.br
+        detach: yes
+        interactive: yes
+        tty: yes
+
+        published_ports:
+          - "8000:8080"
+          - "8022:22"
+        volumes:
+          - /var/jenkins_backup:/var/jenkins_backup
+
+  

@@ -1,2 +1,8 @@
 # spidermanager
-Estrutura DevOps para configurar servidor com dois containers configurado Gogs e Jenkins em cada um deles.
+
+DevOps Structure for setup a server CentOS with two ubuntu containers, one with Gogs and another with Jenkins.
+
+
+V.0.1
+
+Not ready yet.

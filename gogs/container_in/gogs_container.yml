@@ -1,3 +1,22 @@
 - hosts: local
   roles:
     - geerlingguy.gogs
+
+
+- hosts: local
+  tasks:
+    - name: Create folder for gogs
+      file:
+        path: /var/gogs
+        state: directory
+        recurse: yes
+        owner: git
+        group: git
+
+    - name: Enable service Gogs and start
+      service:
+        name: gogs
+        state: restarted
+        sleep: 5
+        enabled: yes
+    

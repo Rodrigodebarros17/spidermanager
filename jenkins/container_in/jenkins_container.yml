@@ -1,0 +1,24 @@
+- hosts: local
+
+  vars:
+    jenkins_hostname: localhost
+    jenkins_http_port: 8080
+    jenkins_admin_username: admin
+    jenkins_admin_password: admin
+
+
+  roles:
+    - role: geerlingguy.java
+      become: yes
+
+    - role: geerlingguy.jenkins
+      become: yes
+
+- hosts: local
+  tasks:
+    - name: Enable Jenkins Service
+      service:
+        name: jenkins
+        state: restarted
+        enabled: yes
+
